@@ -6,6 +6,8 @@ View simple ascii sketches of a house as 3D models. Each utf-8 character corresp
 
 Use https://772.github.io/roommd/!
 
+![grafik](https://github.com/user-attachments/assets/0318a859-19bf-4014-a5c6-1356c452b9d6)
+
 ## How to update the wasm branch in this repository
 
 ```
