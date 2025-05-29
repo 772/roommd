@@ -11,5 +11,9 @@ Use https://772.github.io/roommd/!
 ```
 cargo build --target wasm32-unknown-unknown --release
 wasm-bindgen --no-typescript --target web --out-dir ./ --out-name "roommd" ./target/wasm32-unknown-unknown/release/roommd.wasm
-git add -A && git commit -m "Update." && git push
+git checkout page
+git add roommd.js roommd_bg.wasm
+git commit -m "Update wasm files."
+git push
+git checkout main
 ```
