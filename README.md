@@ -17,3 +17,10 @@ git commit -m "Update wasm files."
 git push
 git checkout main
 ```
+
+If you haven`t used wasm so far, use this first:
+
+```
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli
+```
