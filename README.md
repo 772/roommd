@@ -6,7 +6,7 @@ View simple ascii sketches of a house as 3D models. Each utf-8 character corresp
 
 Use https://772.github.io/roommd/!
 
-## How to update the wasm in this repository
+## How to update the wasm branch in this repository
 
 ```
 cargo build --target wasm32-unknown-unknown --release
