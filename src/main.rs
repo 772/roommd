@@ -3,10 +3,32 @@ use std::collections::HashMap;
 use urlencoding::decode;
 
 #[derive(Component)]
+struct RoomNumber(usize);
+
+#[derive(Component)]
 struct Object(char);
 
 #[derive(Resource)]
+struct ObjectList(HashMap<char, LocationsOfChar>);
+
+#[derive(Resource)]
 struct Descriptions(HashMap<char, String>);
+
+#[derive(Default, Debug)]
+struct LocationsOfChar {
+    top: HashMap<usize, Vec<Position>>,
+    floor: HashMap<usize, Vec<Position>>,
+    back: HashMap<usize, Vec<Position>>,
+    right: HashMap<usize, Vec<Position>>,
+    left: HashMap<usize, Vec<Position>>,
+    front: HashMap<usize, Vec<Position>>,
+}
+
+#[derive(Debug)]
+struct Position {
+    x: usize,
+    y: usize,
+}
 
 pub fn get_letters_in_ascii_grid(
     image: Vec<&str>,
@@ -46,6 +68,7 @@ fn main() {
         .add_systems(Startup, setup)
         .add_plugins(bevy_panorbit_camera::PanOrbitCameraPlugin)
         .insert_resource(Descriptions(HashMap::new()))
+        .insert_resource(ObjectList(HashMap::new()))
         .run();
 }
 
@@ -61,11 +84,31 @@ fn decode_request() -> String {
         .to_string()
 }
 
+fn add_position(
+    object_list: &mut HashMap<char, LocationsOfChar>,
+    c: char,
+    side: &str,
+    layer: usize,
+    pos: Position,
+) {
+    let locations = object_list.entry(c).or_default();
+    match side {
+        "top" => locations.top.entry(layer).or_default().push(pos),
+        "floor" => locations.floor.entry(layer).or_default().push(pos),
+        "back" => locations.back.entry(layer).or_default().push(pos),
+        "right" => locations.right.entry(layer).or_default().push(pos),
+        "left" => locations.left.entry(layer).or_default().push(pos),
+        "front" => locations.front.entry(layer).or_default().push(pos),
+        _ => panic!("Invalid side: {}", side),
+    }
+}
+
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut descriptions: ResMut<Descriptions>,
+    mut object_list: ResMut<ObjectList>,
 ) {
     // Spawn text.
     let url_param = decode_request();
@@ -77,8 +120,7 @@ fn setup(
 
     // Spawn objects.
     let scaling = 1.0 / 18.0;
-    let mut room_index = 0.0;
-
+    let mut room_index = 0;
     for section in clean.split('#').filter(|s| !s.trim().is_empty()) {
         let mut lines = section.trim().lines();
         let first_line = lines.next().unwrap_or("").trim();
@@ -135,7 +177,8 @@ fn setup(
                     })),
                     bevy::pbr::NotShadowCaster,
                     Pickable::IGNORE,
-                    Transform::from_translation(Vec3::new(0.4 * room_index, 0.0, 0.0)),
+                    RoomNumber(room_index),
+                    Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
                 ))
                 .with_children(|parent| {
                     for obj in &top {
@@ -162,6 +205,13 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "top",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                     for obj in &back {
                         let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
@@ -187,6 +237,13 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "back",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                     for obj in &right {
                         let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
@@ -212,6 +269,13 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "right",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                     for obj in &front {
                         let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
@@ -237,6 +301,13 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "front",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                     for obj in &left {
                         let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
@@ -262,6 +333,13 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "left",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                     for obj in &floor {
                         let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
@@ -287,11 +365,17 @@ fn setup(
                                 white_matl.clone(),
                                 obj.2,
                             ));
+                        add_position(
+                            &mut object_list.0,
+                            obj.2,
+                            "floor",
+                            0,
+                            Position { x: obj.0, y: obj.1 },
+                        );
                     }
                 });
-            room_index += 1.0;
+            room_index += 1;
         }
-        // Rearange the rooms. TODO!
     }
 
     commands.spawn((
@@ -299,6 +383,13 @@ fn setup(
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
         bevy_panorbit_camera::PanOrbitCamera::default(),
     ));
+}
+
+fn rearrange_rooms(
+    mut rooms: Query<&mut Transform, With<RoomNumber>>,
+    mut object_list: ResMut<ObjectList>,
+) {
+    // TODO!
 }
 
 #[allow(clippy::type_complexity)]
