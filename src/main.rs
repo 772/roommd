@@ -84,6 +84,11 @@ fn decode_request() -> String {
         .to_string()
 }
 
+#[allow(dead_code)]
+fn get_input() -> String {
+    fs::read_to_string("example.md").expect("Unable to read file")
+}
+
 fn add_position(
     object_list: &mut HashMap<char, LocationsOfChar>,
     c: char,

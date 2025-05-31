@@ -11,19 +11,15 @@ Use https://772.github.io/roommd/!
 ## How to update the wasm branch in this repository
 
 ```
+cargo b
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli
 git add -A && git commit -m "Update" && git push
 cargo build --target wasm32-unknown-unknown --release
 wasm-bindgen --no-typescript --target web --out-dir ./ --out-name "roommd" ./target/wasm32-unknown-unknown/release/roommd.wasm
-git checkout pages
+git checkout --no-overlay pages
 git add roommd.js roommd_bg.wasm index.html example.md
 git commit -m "Update wasm files."
 git push
 git checkout main
-```
-
-If you haven`t used wasm so far, use this first:
-
-```
-rustup target add wasm32-unknown-unknown
-cargo install wasm-bindgen-cli
 ```
