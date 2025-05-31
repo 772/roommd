@@ -93,7 +93,7 @@ fn add_position(
 
 #[cfg(target_arch = "wasm32")]
 fn get_input() -> String {
-    fn decode_request() -> String {
+    decode(
         web_sys::window()
             .expect("no window")
             .location()
@@ -101,12 +101,10 @@ fn get_input() -> String {
             .expect("no search")
             .trim_start_matches('?')
             .to_string()
-            .trim_start_matches("input=")
-            .to_string()
-    }
-    
-    let url = decode_request();
-    decode(&url).unwrap_or_default()
+            .trim_start_matches("input="),
+    )
+    .unwrap_or_default()
+    .to_string()
 }
 
 #[cfg(not(target_arch = "wasm32"))]
