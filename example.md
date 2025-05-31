@@ -1,4 +1,4 @@
-# Ground floor: Eating room
+# Ground floor: Dining room
 
 +----------+
 |          |
@@ -28,6 +28,10 @@
 |          |
 +----------+
 
+# W
+
+Window.
+
 # 1
 
 Wire between lamp and switch.
@@ -38,7 +42,7 @@ Ceiling lamp.
 
 # A
 
-Door between eating room and kitchen.
+Door between dining room and kitchen.
 
 # B
 
@@ -59,11 +63,11 @@ Switch for lamp.
 |          ||       ||          ||       |
 |          ||       ||          ||       |
 |          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-+----------++-------++----------++-------+
+|  C       ||      D||          ||   A   |
+|  C       ||      D||          ||   A   |
+|  C       ||      D||          ||   A   |
+|  C       ||      D||          ||   A   |
++--C-------++------D++----------++---A---+
 +----------+
 |          |
 |          |
@@ -73,6 +77,14 @@ Switch for lamp.
 |          |
 |          |
 +----------+
+
+# C
+
+Door between kitchen and small room.
+
+# D
+
+Door between kitchen and missing room.
 
 # Ground floor: Small room
 
@@ -89,11 +101,11 @@ Switch for lamp.
 |          ||       ||          ||       |
 |          ||       ||          ||       |
 |          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-|          ||       ||          ||       |
-+----------++-------++----------++-------+
+|          ||       ||       C  ||       |
+|          ||       ||       C  ||       |
+|          ||       ||       C  ||       |
+|          ||       ||       C  ||       |
++----------++-------++-------C--++-------+
 +----------+
 |          |
 |          |

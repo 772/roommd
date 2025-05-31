@@ -72,23 +72,6 @@ fn main() {
         .run();
 }
 
-fn decode_request() -> String {
-    web_sys::window()
-        .expect("no window")
-        .location()
-        .search() // <-- WICHTIG: `.search()` statt `.to_string()`
-        .expect("no search")
-        .trim_start_matches('?')
-        .to_string()
-        .trim_start_matches("input=")
-        .to_string()
-}
-
-#[allow(dead_code)]
-fn get_input() -> String {
-    std::fs::read_to_string("example.md").expect("Unable to read file")
-}
-
 fn add_position(
     object_list: &mut HashMap<char, LocationsOfChar>,
     c: char,
@@ -108,6 +91,29 @@ fn add_position(
     }
 }
 
+#[cfg(target_arch = "wasm32")]
+fn get_input() -> String {
+    fn decode_request() -> String {
+        web_sys::window()
+            .expect("no window")
+            .location()
+            .search()
+            .expect("no search")
+            .trim_start_matches('?')
+            .to_string()
+            .trim_start_matches("input=")
+            .to_string()
+    }
+    
+    let url = decode_request();
+    decode(&url).unwrap_or_default()
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn get_input() -> String {
+    std::fs::read_to_string("example.md").expect("Unable to read file")
+}
+
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -115,18 +121,15 @@ fn setup(
     mut descriptions: ResMut<Descriptions>,
     mut object_list: ResMut<ObjectList>,
 ) {
-    // Spawn text.
-    let url_param = decode_request();
-    let clean = decode(&url_param).unwrap_or_default();
-    //commands.spawn(Text(clean.to_string()));
     commands.spawn(Text(
         "Hover objects to read their descriptions.".to_string(),
     ));
+    let text = get_input();
 
     // Spawn objects.
     let scaling = 1.0 / 18.0;
     let mut room_index = 0;
-    for section in clean.split('#').filter(|s| !s.trim().is_empty()) {
+    for section in text.split('#').filter(|s| !s.trim().is_empty()) {
         let mut lines = section.trim().lines();
         let first_line = lines.next().unwrap_or("").trim();
         let name = first_line.to_string();
@@ -387,6 +390,12 @@ fn setup(
         Camera3d::default(),
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
         bevy_panorbit_camera::PanOrbitCamera::default(),
+    ));
+
+    // light
+    commands.spawn((
+        DirectionalLight::default(),
+        Transform::from_translation(Vec3::ONE).looking_at(Vec3::ZERO, Vec3::Y),
     ));
 }
 
