@@ -86,7 +86,7 @@ fn decode_request() -> String {
 
 #[allow(dead_code)]
 fn get_input() -> String {
-    fs::read_to_string("example.md").expect("Unable to read file")
+    std::fs::read_to_string("example.md").expect("Unable to read file")
 }
 
 fn add_position(
