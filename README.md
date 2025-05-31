@@ -15,7 +15,7 @@ git add -A && git commit -m "Update" && git push
 cargo build --target wasm32-unknown-unknown --release
 wasm-bindgen --no-typescript --target web --out-dir ./ --out-name "roommd" ./target/wasm32-unknown-unknown/release/roommd.wasm
 git checkout pages
-git add roommd.js roommd_bg.wasm index.html
+git add roommd.js roommd_bg.wasm index.html example.md
 git commit -m "Update wasm files."
 git push
 git checkout main
