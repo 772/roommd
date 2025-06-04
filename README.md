@@ -9,8 +9,6 @@ View simple ascii sketches of a house as 3D models with this web application. Ea
 
 Open [RoomMD](https://772.github.io/roommd/).
 
-![grafik](https://github.com/user-attachments/assets/0318a859-19bf-4014-a5c6-1356c452b9d6)
-
 ## Info
 
 - Minimalistic code with less than 600 lines. Not optimized, yet.
