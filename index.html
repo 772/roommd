@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>RoomMD</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="load" style="float: left">Load</button>
+        <textarea
+            id="input"
+            style="
+                line-height: 1;
+                min-height: 900px;
+                max-height: 900px;
+                width: 800px;
+                float: left;
+            "
+        ></textarea>
+        <script type="module">
+            fetch("example.md")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("File not found or network error");
+                    }
+                    return response.text();
+                })
+                .then((text) => {
+                    document.getElementById("input").value = text;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    document.getElementById("input").value =
+                        `Failed to load file: ${error.message}`;
+                });
+            import init from "./roommd.js";
+            init().catch((error) => {
+                if (
+                    !error.message.startsWith(
+                        "Using exceptions for control flow, don't mind me. This isn't actually an error!",
+                    )
+                ) {
+                    throw error;
+                }
+            });
+            document.getElementById("load").addEventListener("click", () => {
+                const input = document.getElementById("input").value;
+                if (input) {
+                    window.location.search = `?input=${encodeURIComponent(input)}`;
+                }
+            });
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("input")) {
+                document.getElementById("input").value = decodeURIComponent(
+                    params.get("input"),
+                );
+            }
+        </script>
+    </body>
+</html>
