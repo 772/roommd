@@ -18,7 +18,6 @@ Open [RoomMD](https://772.github.io/roommd/).
 Note that after the WebAssembly branch was initially created, I deleted all files in it.
 
 ```
-rustup update
 cargo b
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli
