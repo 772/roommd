@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 use std::collections::HashMap;
-use web_sys::wasm_bindgen::JsCast;
 
 #[derive(Component)]
 struct Object(char);
@@ -20,6 +19,7 @@ struct LocationsOfChar {
 
 #[cfg(target_arch = "wasm32")]
 fn get_input() -> String {
+    use web_sys::wasm_bindgen::JsCast;
     let window = web_sys::window().unwrap();
     let document = window.document().unwrap();
     document
