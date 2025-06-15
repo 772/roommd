@@ -26,21 +26,23 @@
             "
         ></textarea>
         <script type="module">
-            fetch("example.md")
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("File not found or network error");
-                    }
-                    return response.text();
-                })
-                .then((text) => {
-                    document.getElementById("input").value = text;
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    document.getElementById("input").value =
-                        `Failed to load file: ${error.message}`;
-                });
+            const inputElement = document.getElementById("input");
+            if (inputElement.value.trim() === "") {
+                fetch("example.md")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("File not found or network error");
+                        }
+                        return response.text();
+                    })
+                    .then((text) => {
+                        inputElement.value = text; // Text einfügen
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        inputElement.value = `Failed to load file: ${error.message}`;
+                    });
+            }
             import init from "./wasm.js";
             init().catch((error) => {
                 if (
