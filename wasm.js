@@ -1142,13 +1142,6 @@ function __wbg_get_imports() {
         const ret = arg0.inlineSize;
         return ret;
     };
-    imports.wbg.__wbg_innerHTML_e1553352fe93921a = function(arg0, arg1) {
-        const ret = arg1.innerHTML;
-        const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-        const len1 = WASM_VECTOR_LEN;
-        getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
-        getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
-    };
     imports.wbg.__wbg_instanceof_DomException_ed1ccb7aaf39034c = function(arg0) {
         let result;
         try {
@@ -2007,6 +2000,13 @@ function __wbg_get_imports() {
         getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
         getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
     }, arguments) };
+    imports.wbg.__wbg_value_1d971aac958c6f2f = function(arg0, arg1) {
+        const ret = arg1.value;
+        const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
+        getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
+    };
     imports.wbg.__wbg_value_f992786d714424bd = function(arg0) {
         const ret = arg0.value;
         return ret;
