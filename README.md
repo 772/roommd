@@ -6,7 +6,9 @@ View simple ascii sketches of a house as 3D models with this web application. Ea
 
 ## Usage
 
-Open [RoomMD](https://772.github.io/roommd/).
+Open [RoomMD](https://772.github.io/roommd/) in your web browser.
+
+If you use the offline version: This program will always read an input.md in the folder where this is started.
 
 ## Info
 
