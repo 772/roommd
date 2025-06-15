@@ -22,31 +22,13 @@ struct LocationsOfChar {
 fn get_input() -> String {
     let window = web_sys::window().unwrap();
     let document = window.document().unwrap();
-    urlencoding::decode(
-        &document
-            .get_element_by_id("input")
-            .unwrap()
-            .dyn_into::<web_sys::HtmlTextAreaElement>()
-            .unwrap()
-            .value(),
-    )
-    .unwrap_or_default()
-    .to_string()
+    &document
+        .get_element_by_id("input")
+        .unwrap()
+        .dyn_into::<web_sys::HtmlTextAreaElement>()
+        .unwrap()
+        .value()
 }
-/*
-urlencoding::decode(
-    web_sys::window()
-        .expect("no window")
-        .location()
-        .search()
-        .expect("no search")
-        .trim_start_matches('?')
-        .to_string()
-        .trim_start_matches("input="),
-)
-.unwrap_or_default()
-.to_string()
-*/
 
 #[cfg(not(target_arch = "wasm32"))]
 fn get_input() -> String {
