@@ -14,7 +14,7 @@
         </style>
     </head>
     <body>
-        <button id="load" style="float: left">Load</button>
+        <h2>Refresh this site to update the 3D scene after editing the textarea</h2>
         <textarea
             id="input"
             style="
@@ -51,18 +51,6 @@
                     throw error;
                 }
             });
-            document.getElementById("load").addEventListener("click", () => {
-                const input = document.getElementById("input").value;
-                if (input) {
-                    window.location.search = `?input=${encodeURIComponent(input)}`;
-                }
-            });
-            const params = new URLSearchParams(window.location.search);
-            if (params.has("input")) {
-                document.getElementById("input").value = decodeURIComponent(
-                    params.get("input"),
-                );
-            }
         </script>
     </body>
 </html>
