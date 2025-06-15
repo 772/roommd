@@ -22,7 +22,7 @@ struct LocationsOfChar {
 fn get_input() -> String {
     let window = web_sys::window().unwrap();
     let document = window.document().unwrap();
-    &document
+    document
         .get_element_by_id("input")
         .unwrap()
         .dyn_into::<web_sys::HtmlTextAreaElement>()
