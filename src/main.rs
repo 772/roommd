@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use std::collections::HashMap;
+use web_sys::wasm_bindgen::JsCast;
 
 #[derive(Component)]
 struct Object(char);
@@ -17,17 +18,22 @@ struct LocationsOfChar {
     front: HashMap<usize, Vec<Position>>,
 }
 
+
+
 #[cfg(target_arch = "wasm32")]
 fn get_input() -> String {
+let window = web_sys::window().unwrap();
+let document = window.document().unwrap();
     urlencoding::decode(
-        document
+        &document
             .get_element_by_id("input")
             .unwrap()
-            .dyn_into::<HtmlTextAreaElement>()
-            .unwrap(),
+            .dyn_into::<web_sys::HtmlTextAreaElement>()
+            .unwrap().inner_html()
     )
     .unwrap_or_default()
     .to_string()
+}
     /*
     urlencoding::decode(
         web_sys::window()
@@ -42,7 +48,6 @@ fn get_input() -> String {
     .unwrap_or_default()
     .to_string()
     */
-}
 
 #[cfg(not(target_arch = "wasm32"))]
 fn get_input() -> String {
