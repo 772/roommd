@@ -18,21 +18,22 @@ Open [RoomMD](https://772.github.io/roommd/).
 Note that after the WebAssembly branch was initially created, I deleted all files in it.
 
 ```
+rustup update
 cargo b
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli
 git add -A && git commit -m "Update."
 git push
 cargo build --target wasm32-unknown-unknown --release
-wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "roommd" ./target/wasm32-unknown-unknown/release/roommd.wasm
+wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./target/wasm32-unknown-unknown/release/wasm.wasm
 cp index.html ..
 cp example.md ..
 git checkout wasm
 mv ../index.html .
 mv ../example.md .
-mv ../roommd.js .
-mv ../roommd_bg.wasm .
-git add roommd.js roommd_bg.wasm index.html example.md
+mv ../wasm.js .
+mv ../wasm_bg.wasm .
+git add wasm.js wasm_bg.wasm index.html example.md
 git commit -m "Update wasm files."
 git push
 git checkout main
