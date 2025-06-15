@@ -24,7 +24,7 @@ cargo install wasm-bindgen-cli
 git add -A && git commit -m "Update."
 git push
 cargo build --target wasm32-unknown-unknown --release
-wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./target/wasm32-unknown-unknown/release/wasm.wasm
+wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./target/wasm32-unknown-unknown/release/*.wasm
 cp index.html ..
 cp example.md ..
 git checkout wasm
