@@ -41,7 +41,7 @@
                     document.getElementById("input").value =
                         `Failed to load file: ${error.message}`;
                 });
-            import init from "./roommd.js";
+            import init from "./wasm.js";
             init().catch((error) => {
                 if (
                     !error.message.startsWith(
