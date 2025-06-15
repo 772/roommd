@@ -20,6 +20,16 @@ struct LocationsOfChar {
 #[cfg(target_arch = "wasm32")]
 fn get_input() -> String {
     urlencoding::decode(
+        document
+            .get_element_by_id("input")
+            .unwrap()
+            .dyn_into::<HtmlTextAreaElement>()
+            .unwrap(),
+    )
+    .unwrap_or_default()
+    .to_string()
+    /*
+    urlencoding::decode(
         web_sys::window()
             .expect("no window")
             .location()
@@ -31,6 +41,7 @@ fn get_input() -> String {
     )
     .unwrap_or_default()
     .to_string()
+    */
 }
 
 #[cfg(not(target_arch = "wasm32"))]
