@@ -40,8 +40,3 @@ git push
 git checkout main
 ```
 
-## TODO
-
-- Texture for rooms. Then update screenshot.
-- When placing rooms near to other rooms, the normalized position should be used which will lead to more hits. Then use an offset to place use the correct position. Rooms shouldn't need to have the same height/depth/width.
-- Better HTML editor that warns if rooms have inconsitent data.
