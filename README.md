@@ -6,7 +6,9 @@ View simple ascii sketches of a house as 3D models with this web application. Ea
 
 ## Usage
 
-Open [RoomMD](https://772.github.io/roommd/).
+- **Web**: [RoomMD WebAssembly](https://772.github.io/roommd/).
+- **Installed**: `roommd example.md` (install via ```cargo install roommd```).
+- **From source**: ```cargo run example.md``` (after cloning this repository).
 
 ## Info
 

@@ -32,7 +32,17 @@ fn get_input() -> String {
 
 #[cfg(not(target_arch = "wasm32"))]
 fn get_input() -> String {
-    std::fs::read_to_string("example.md").expect("Unable to read file")
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() != 2 {
+        eprintln!("Error: Exactly one markdown file (.md) must be provided.");
+        std::process::exit(1);
+    }
+    let path = std::path::Path::new(&args[1]);    
+    if path.extension().map(|ext| ext != "md").unwrap_or(true) {
+        eprintln!("Error: Failed to read file '{}'", path.display());
+        std::process::exit(1);
+    }
+    std::fs::read_to_string(path).expect("Error reading file.")
 }
 
 pub fn get_letters_in_ascii_grid(
