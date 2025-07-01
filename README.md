@@ -37,7 +37,7 @@ mv ../wasm_bg.wasm .
 mv ../assets .
 git add wasm.js wasm_bg.wasm index.html example.md assets
 git commit -m "Update wasm files."
-git push
+git push -f
 git checkout main
 ```
 
