@@ -7,26 +7,27 @@
         <style>
             html,
             body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
+            height: 100%;
+            margin: 0;
+            padding: 0;
             }
         </style>
     </head>
     <body>
+        <canvas id="mygame-canvas" width="1280" height="720"></canvas>
         <button style="float:right;width:100%;" onclick="window.location.reload()">
-            Update
+        Update
         </button>
         <textarea
             id="input"
             style="
-                line-height: 1;
-                min-height: 900px;
-                max-height: 900px;
-                width: 100%;
-                float: right;
+            line-height: 1;
+            min-height: 900px;
+            max-height: 900px;
+            width: 100%;
+            float: right;
             "
-        ></textarea>
+            ></textarea>
         <script type="module">
             const inputElement = document.getElementById("input");
             if (inputElement.value.trim() === "") {
@@ -58,3 +59,4 @@
         </script>
     </body>
 </html>
+

@@ -12,7 +12,6 @@ View simple ascii sketches of a house as 3D models with this web application. Ea
 
 ## Info
 
-- Texture for walls: .
 - Programmed via safe Rust and the [Bevy Engine](https://bevyengine.org/). This is an example of using [bevy::render::render_resource::Face::Front](https://docs.rs/bevy/latest/bevy/render/render_resource/enum.Face.html).
 
 ## How to update the wasm branch in this repository
