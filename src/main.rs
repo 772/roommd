@@ -37,7 +37,7 @@ fn get_input() -> String {
         eprintln!("Error: Exactly one markdown file (.md) must be provided.");
         std::process::exit(1);
     }
-    let path = std::path::Path::new(&args[1]);    
+    let path = std::path::Path::new(&args[1]);
     if path.extension().map(|ext| ext != "md").unwrap_or(true) {
         eprintln!("Error: Failed to read file '{}'", path.display());
         std::process::exit(1);
@@ -112,6 +112,7 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut descriptions: ResMut<Descriptions>,
+    asset_server: Res<AssetServer>,
 ) {
     // Step 1: Read markdown and create lists ob objects.
     let text = get_input();
@@ -352,17 +353,26 @@ fn setup(
     }
 
     // Step 3: Spawn rooms and objects.
+    let texture_handle: Handle<Image> = asset_server.load("texture.png");
+    let normal_handle: Handle<Image> = asset_server.load("normal.png");
     let scaling = 1.0 / 18.0;
     for room in rooms {
         commands
             .spawn((
-                Mesh3d(meshes.add(Cuboid::new(
-                    room.width * scaling,
-                    room.height * scaling,
-                    room.depth * scaling,
-                ))),
+                Mesh3d(
+                    meshes.add(
+                        Mesh::from(Cuboid::new(
+                            room.width * scaling,
+                            room.height * scaling,
+                            room.depth * scaling,
+                        ))
+                        .with_generated_tangents()
+                        .unwrap(),
+                    ),
+                ),
                 MeshMaterial3d(materials.add(StandardMaterial {
-                    base_color: Color::srgba(0.2, 0.3, 0.4, 0.7),
+                    base_color_texture: Some(texture_handle.clone()),
+                    normal_map_texture: Some(normal_handle.clone()),
                     metallic: 0.7,
                     perceptual_roughness: 0.3,
                     reflectance: 0.8,
@@ -373,8 +383,8 @@ fn setup(
                     fog_enabled: true,
                     ..default()
                 })),
-                bevy::pbr::NotShadowCaster,
                 Pickable::IGNORE,
+                bevy::pbr::NotShadowCaster,
                 Transform::from_translation(Vec3::new(
                     room.x * scaling,
                     room.y * scaling,
@@ -394,6 +404,7 @@ fn setup(
                                 scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -419,6 +430,7 @@ fn setup(
                                 scaling * (0.0 - room.depth as f32 / 2.0 + 0.2),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -444,6 +456,7 @@ fn setup(
                                 scaling * (obj.0 as f32 - room.height as f32 / 2.0 + 0.5),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -469,6 +482,7 @@ fn setup(
                                 scaling * (room.depth as f32 / 2.0 - 0.2),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -494,6 +508,7 @@ fn setup(
                                 scaling * (0.0 - obj.0 as f32 + room.height as f32 / 2.0 - 0.5),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -519,6 +534,7 @@ fn setup(
                                 scaling * (obj.1 as f32 - room.depth as f32 / 2.0 + 0.5),
                             )),
                             Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -546,8 +562,14 @@ fn setup(
         bevy_panorbit_camera::PanOrbitCamera::default(),
     ));
     commands.spawn((
-        DirectionalLight::default(),
-        Transform::from_translation(Vec3::ONE).looking_at(Vec3::ZERO, Vec3::Y),
+        PointLight {
+            shadows_enabled: true,
+            intensity: 10_000_000.,
+            range: 100.0,
+            shadow_depth_bias: 0.2,
+            ..default()
+        },
+        Transform::from_xyz(8.0, 16.0, 8.0),
     ));
 }
 
