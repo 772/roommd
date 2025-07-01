@@ -72,8 +72,9 @@ fn main() {
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
-                    resolution: bevy::window::WindowResolution::new(1000.0, 900.0)
+                    resolution: bevy::window::WindowResolution::new(1000.0, 500.0)
                         .with_scale_factor_override(1.0),
+                    canvas: Some("#mygame-canvas".into()),
                     ..default()
                 }),
                 ..default()
