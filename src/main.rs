@@ -356,7 +356,8 @@ fn setup(
     // Step 3: Spawn rooms and objects.
     let texture_handle: Handle<Image> = asset_server.load("texture.png");
     let normal_handle: Handle<Image> = asset_server.load("normal.png");
-    let scaling = 1.0 / 18.0;
+    let scaling_room = 1.0 / 18.0;
+    let scaling = scaling_room * 0.99;
     for room in rooms {
         commands
             .spawn((
@@ -387,9 +388,9 @@ fn setup(
                 Pickable::IGNORE,
                 bevy::pbr::NotShadowCaster,
                 Transform::from_translation(Vec3::new(
-                    room.x * scaling,
-                    room.y * scaling,
-                    room.z * scaling,
+                    room.x * scaling_room,
+                    room.y * scaling_room,
+                    room.z * scaling_room,
                 )),
             ))
             .with_children(|parent| {
@@ -401,7 +402,7 @@ fn setup(
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
                                 scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
-                                scaling * (room.height as f32 / 2.0 - 0.2),
+                                scaling * (room.height as f32 / 2.0),
                                 scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
                             )),
                             Object(obj.2),
@@ -428,7 +429,7 @@ fn setup(
                             Transform::from_translation(Vec3::new(
                                 scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
                                 scaling * (0.0 - obj.1 as f32 + room.height as f32 / 2.0 - 0.5),
-                                scaling * (0.0 - room.depth as f32 / 2.0 + 0.2),
+                                scaling * (0.0 - room.depth as f32 / 2.0),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -452,7 +453,7 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (room.width as f32 / 2.0 - 0.2),
+                                scaling * (room.width as f32 / 2.0),
                                 scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
                                 scaling * (obj.0 as f32 - room.height as f32 / 2.0 + 0.5),
                             )),
@@ -480,7 +481,7 @@ fn setup(
                             Transform::from_translation(Vec3::new(
                                 scaling * (0.0 - obj.0 as f32 + room.width as f32 / 2.0 - 0.5),
                                 scaling * (0.0 - obj.1 as f32 + room.height as f32 / 2.0 - 0.5),
-                                scaling * (room.depth as f32 / 2.0 - 0.2),
+                                scaling * (room.depth as f32 / 2.0),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -504,7 +505,7 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (0.0 - room.width as f32 / 2.0 + 0.2),
+                                scaling * (0.0 - room.width as f32 / 2.0),
                                 scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
                                 scaling * (0.0 - obj.0 as f32 + room.height as f32 / 2.0 - 0.5),
                             )),
@@ -531,7 +532,7 @@ fn setup(
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
                                 scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
-                                scaling * (0.0 - room.height as f32 / 2.0 + 0.2),
+                                scaling * (0.0 - room.height as f32 / 2.0),
                                 scaling * (obj.1 as f32 - room.depth as f32 / 2.0 + 0.5),
                             )),
                             Object(obj.2),
