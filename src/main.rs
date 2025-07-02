@@ -47,10 +47,10 @@ fn get_input() -> String {
 
 pub fn get_letters_in_ascii_grid(
     image: Vec<&str>,
-    wdt: usize,
-    hgt: usize,
     x: usize,
     y: usize,
+    wdt: usize,
+    hgt: usize,
 ) -> Vec<(usize, usize, char)> {
     const IGNORED_CHARS: [char; 4] = ['+', '-', ' ', '|'];
 
@@ -220,7 +220,6 @@ fn setup(
                                 let mut other_positions_mirrored = positions2.clone();
 
                                 // Mirroring other position.
-                                println!("with = {}", rooms[*other_room_index].width);
                                 for i in 0..other_positions_mirrored.len() {
                                     if y_mul == 0.0 {
                                         other_positions_mirrored[i].x =
