@@ -7,8 +7,8 @@ repository = "https://github.com/772/roommd"
 readme = "README.md"
 license-file = "LICENSE"
 edition = "2024"
-categories = ["markdown"]
-keywords = ["Markdown"]
+categories = ["visualization"]
+keywords = ["graphics"]
 
 [dependencies]
 bevy = "0.16"
