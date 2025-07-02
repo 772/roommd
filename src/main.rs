@@ -104,8 +104,8 @@ struct Room {
 
 #[derive(Debug, PartialEq, Clone)]
 struct Position {
-    x: isize,
-    y: isize,
+    x: i32,
+    y: i32,
 }
 
 fn setup(
@@ -180,8 +180,8 @@ fn setup(
             for (objects, wall_name) in walls {
                 for obj in objects {
                     let pos = Position {
-                        x: obj.0 as isize,
-                        y: obj.1 as isize,
+                        x: obj.0 as i32,
+                        y: obj.1 as i32,
                     };
                     let locations = object_list.entry(obj.2).or_default();
                     match wall_name {
@@ -224,18 +224,18 @@ fn setup(
                                 for i in 0..other_positions_mirrored.len() {
                                     if y_mul == 0.0 {
                                         other_positions_mirrored[i].x =
-                                            (rooms[*other_room_index].depth as isize
-                                                * (x_mul as isize).abs()
-                                                + rooms[*other_room_index].width as isize
-                                                    * (z_mul as isize).abs())
-                                                - other_positions_mirrored[i].x as isize
+                                            (rooms[*other_room_index].depth as i32
+                                                * (x_mul as i32).abs()
+                                                + rooms[*other_room_index].width as i32
+                                                    * (z_mul as i32).abs())
+                                                - other_positions_mirrored[i].x as i32
                                                 - 1
                                     }
                                     if y_mul != 0.0 {
                                         other_positions_mirrored[i].y =
-                                            (rooms[*other_room_index].height as isize
-                                                * (y_mul as isize).abs())
-                                                - other_positions_mirrored[i].y as isize
+                                            (rooms[*other_room_index].height as i32
+                                                * (y_mul as i32).abs())
+                                                - other_positions_mirrored[i].y as i32
                                                 - 1
                                     }
                                 }
