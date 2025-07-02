@@ -3,6 +3,7 @@ name = "roommd"
 version = "0.2.0"
 authors = ["Armin Schäfer"]
 description = "Write room plans via markdown."
+repository = "https://github.com/772/roommd"
 readme = "README.md"
 license-file = "LICENSE"
 edition = "2024"
