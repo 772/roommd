@@ -4,6 +4,7 @@ version = "0.2.0"
 authors = ["Armin Schäfer"]
 description = "Write room plans via markdown."
 readme = "README.md"
+license-file = "LICENSE"
 edition = "2024"
 categories = ["markdown"]
 keywords = ["Markdown"]
@@ -13,6 +14,7 @@ bevy = "0.16"
 bevy_panorbit_camera = "0.26"
 web-sys = { version = "0.3.77", features = ["HtmlTextAreaElement"] }
 urlencoding = "2.1.3"
+license = "3.7.0"
 
 [profile.dev]
 opt-level = 0
