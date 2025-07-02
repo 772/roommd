@@ -30,6 +30,7 @@ cp index.html ..
 cp example.md ..
 cp assets .. -r
 git checkout wasm
+rm assets -R
 mv ../index.html .
 mv ../example.md .
 mv ../wasm.js .
