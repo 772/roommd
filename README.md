@@ -13,9 +13,12 @@ View simple ascii sketches of a house as 3D models with this web application. Ea
 - **Installed**: `roommd example.md` (install via ```cargo install roommd```).
 - **From source**: ```cargo run example.md``` (after cloning this repository).
 
+https://github.com/user-attachments/assets/cc425997-2444-4089-b27f-a17cc8623284
+
 ## Info
 
 - Programmed via safe Rust and the [Bevy Engine](https://bevyengine.org/). This is an example of using [bevy::render::render_resource::Face::Front](https://docs.rs/bevy/latest/bevy/render/render_resource/enum.Face.html).
+- Make sure the width of the back wall is matching with the sides of the ceiling and so on. The software won't start if there is any error.
 
 ## How to update the wasm branch in this repository
 
