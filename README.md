@@ -1,6 +1,6 @@
 _Creating building (wiring) diagrams should be as easy as writing markdown._
 
-[![License: MIT/Apache](https://img.shields.io/badge/License-MIT%20or%20Apache2-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL3](https://img.shields.io/badge/License-GNU%20GPL-blue)](https://opensource.org/license/gpl-3-0)
 [![Crate](https://img.shields.io/crates/v/roommd.svg)](https://crates.io/crates/roommd)
 
 ## What is RoomMD?
