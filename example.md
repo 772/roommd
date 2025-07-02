@@ -115,3 +115,4 @@ Door between kitchen and missing room.
 |          |
 |          |
 +----------+
+
