@@ -279,7 +279,7 @@ fn setup(
                                     }
                                     // Top, Bottom.
                                     if y_mul != 0.0 {
-                                        rooms[*current_room_index].z -= y_full_offset;
+                                        rooms[*current_room_index].z += y_full_offset;
                                         rooms[*current_room_index].x -= x_full_offset;
                                     }
                                     // Front, Back.
@@ -321,10 +321,7 @@ fn setup(
                 MeshMaterial3d(materials.add(StandardMaterial {
                     base_color_texture: Some(texture_handle.clone()),
                     normal_map_texture: Some(normal_handle.clone()),
-                    metallic: 0.7,
-                    perceptual_roughness: 0.3,
-                    reflectance: 0.8,
-                    emissive: Color::srgba(0.05, 0.05, 0.07, 1.0).into(),
+                    emissive: Color::srgba(0.0, 0.0, 0.0, 1.0).into(),
                     cull_mode: Some(bevy::render::render_resource::Face::Front),
                     double_sided: true,
                     unlit: false,
