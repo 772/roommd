@@ -47,10 +47,10 @@ fn get_input() -> String {
 
 pub fn get_letters_in_ascii_grid(
     image: Vec<&str>,
-    x: usize,
-    y: usize,
     wdt: usize,
     hgt: usize,
+    x: usize,
+    y: usize,
 ) -> Vec<(usize, usize, char)> {
     const IGNORED_CHARS: [char; 4] = ['+', '-', ' ', '|'];
 
