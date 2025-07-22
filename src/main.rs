@@ -191,7 +191,7 @@ fn setup(
                         "right" => locations.right.entry(room_index).or_default().push(pos),
                         "left" => locations.left.entry(room_index).or_default().push(pos),
                         "front" => locations.front.entry(room_index).or_default().push(pos),
-                        _ => panic!("Invalid wall_name: {}", wall_name),
+                        _ => panic!("Invalid wall_name: {wall_name}"),
                     }
                 }
             }
@@ -201,7 +201,7 @@ fn setup(
 
     // Step 2: Rearange the positions of the rooms.
     for _ in 0..2 {
-        for (_character, locations) in &object_list {
+        for locations in object_list.values() {
             let walls = [
                 (&locations.left, &locations.right, 1.0, 0.0, 0.0),
                 (&locations.right, &locations.left, -1.0, 0.0, 0.0),
@@ -220,22 +220,20 @@ fn setup(
                                 let mut other_positions_mirrored = positions2.clone();
 
                                 // Mirroring other position.
-                                for i in 0..other_positions_mirrored.len() {
+                                for position in &mut other_positions_mirrored {
                                     if y_mul == 0.0 {
-                                        other_positions_mirrored[i].x =
-                                            (rooms[*other_room_index].depth as i32
-                                                * (x_mul as i32).abs()
-                                                + rooms[*other_room_index].width as i32
-                                                    * (z_mul as i32).abs())
-                                                - other_positions_mirrored[i].x as i32
-                                                - 1
+                                        position.x = (rooms[*other_room_index].depth as i32
+                                            * (x_mul as i32).abs()
+                                            + rooms[*other_room_index].width as i32
+                                                * (z_mul as i32).abs())
+                                            - position.x
+                                            - 1;
                                     }
                                     if y_mul != 0.0 {
-                                        other_positions_mirrored[i].y =
-                                            (rooms[*other_room_index].height as i32
-                                                * (y_mul as i32).abs())
-                                                - other_positions_mirrored[i].y as i32
-                                                - 1
+                                        position.y = (rooms[*other_room_index].height as i32
+                                            * (y_mul as i32).abs())
+                                            - position.y
+                                            - 1;
                                     }
                                 }
                                 other_positions_mirrored
@@ -244,17 +242,17 @@ fn setup(
                                 // Normalize this position.
                                 let x_offset_this = positions_this[0].x;
                                 let y_offset_this = positions_this[0].y;
-                                for i in 0..positions_this.len() {
-                                    positions_this[i].x -= x_offset_this;
-                                    positions_this[i].y -= y_offset_this;
+                                for position in &mut positions_this {
+                                    position.x -= x_offset_this;
+                                    position.y -= y_offset_this;
                                 }
 
                                 // Normalize other position.
                                 let x_offset_other = other_positions_mirrored[0].x;
                                 let y_offset_other = other_positions_mirrored[0].y;
-                                for i in 0..other_positions_mirrored.len() {
-                                    other_positions_mirrored[i].x -= x_offset_other;
-                                    other_positions_mirrored[i].y -= y_offset_other;
+                                for position in &mut other_positions_mirrored {
+                                    position.x -= x_offset_other;
+                                    position.y -= y_offset_other;
                                 }
 
                                 let x_full_offset = x_offset_this as f32 - x_offset_other as f32;
@@ -344,9 +342,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling, scaling * 0.2, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
-                                scaling * (room.height as f32 / 2.0 - 0.1),
-                                scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (room.height / 2.0 - 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -370,9 +368,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling, scaling, scaling * 0.2))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
-                                scaling * (0.0 - obj.1 as f32 + room.height as f32 / 2.0 - 0.5),
-                                scaling * (0.0 - room.depth as f32 / 2.0 - 0.1),
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
+                                scaling * (0.0 - room.depth / 2.0 - 0.1),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -396,9 +394,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (room.width as f32 / 2.0 - 0.1),
-                                scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
-                                scaling * (obj.0 as f32 - room.height as f32 / 2.0 + 0.5),
+                                scaling * (room.width / 2.0 - 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
+                                scaling * (obj.0 as f32 - room.height / 2.0 + 0.5),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -422,9 +420,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling, scaling, scaling * 0.2))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (0.0 - obj.0 as f32 + room.width as f32 / 2.0 - 0.5),
-                                scaling * (0.0 - obj.1 as f32 + room.height as f32 / 2.0 - 0.5),
-                                scaling * (room.depth as f32 / 2.0 + 0.1),
+                                scaling * (0.0 - obj.0 as f32 + room.width / 2.0 - 0.5),
+                                scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
+                                scaling * (room.depth / 2.0 + 0.1),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -448,9 +446,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (0.0 - room.width as f32 / 2.0 + 0.1),
-                                scaling * (0.0 - obj.1 as f32 + room.depth as f32 / 2.0 - 0.5),
-                                scaling * (0.0 - obj.0 as f32 + room.height as f32 / 2.0 - 0.5),
+                                scaling * (0.0 - room.width / 2.0 + 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
+                                scaling * (0.0 - obj.0 as f32 + room.height / 2.0 - 0.5),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
@@ -474,9 +472,9 @@ fn setup(
                             Mesh3d(meshes.add(Cuboid::new(scaling, scaling * 0.2, scaling))),
                             MeshMaterial3d(white_matl.clone()),
                             Transform::from_translation(Vec3::new(
-                                scaling * (obj.0 as f32 - room.width as f32 / 2.0 + 0.5),
-                                scaling * (0.0 - room.height as f32 / 2.0 + 0.1),
-                                scaling * (obj.1 as f32 - room.depth as f32 / 2.0 + 0.5),
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (0.0 - room.height / 2.0 + 0.1),
+                                scaling * (obj.1 as f32 - room.depth / 2.0 + 0.5),
                             )),
                             Object(obj.2),
                             bevy::pbr::NotShadowCaster,
