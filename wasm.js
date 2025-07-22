@@ -280,7 +280,7 @@ function __wbg_adapter_56(arg0, arg1) {
 }
 
 function __wbg_adapter_59(arg0, arg1, arg2) {
-    wasm.closure119331_externref_shim(arg0, arg1, arg2);
+    wasm.closure119320_externref_shim(arg0, arg1, arg2);
 }
 
 const __wbindgen_enum_GamepadMappingType = ["", "standard"];
@@ -2072,8 +2072,8 @@ function __wbg_get_imports() {
         const ret = false;
         return ret;
     };
-    imports.wbg.__wbindgen_closure_wrapper152962 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 119332, __wbg_adapter_59);
+    imports.wbg.__wbindgen_closure_wrapper152948 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 119321, __wbg_adapter_59);
         return ret;
     };
     imports.wbg.__wbindgen_closure_wrapper6502 = function(arg0, arg1, arg2) {
@@ -2116,7 +2116,7 @@ function __wbg_get_imports() {
         const ret = makeMutClosure(arg0, arg1, 4905, __wbg_adapter_53);
         return ret;
     };
-    imports.wbg.__wbindgen_closure_wrapper81007 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper81006 = function(arg0, arg1, arg2) {
         const ret = makeMutClosure(arg0, arg1, 62520, __wbg_adapter_56);
         return ret;
     };
