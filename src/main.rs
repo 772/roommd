@@ -556,8 +556,6 @@ fn setup(
         },
         Transform::from_xyz(5.0, -10.0, 2.5),
     ));
-
-    
 }
 
 #[allow(clippy::type_complexity)]
