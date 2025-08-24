@@ -34,15 +34,13 @@ cargo build --target wasm32-unknown-unknown --release
 wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./target/wasm32-unknown-unknown/release/*.wasm
 cp index.html ..
 cp example.md ..
-cp assets .. -r
 git checkout wasm
 rm assets -R
 mv ../index.html .
 mv ../example.md .
 mv ../wasm.js .
 mv ../wasm_bg.wasm .
-mv ../assets .
-git add wasm.js wasm_bg.wasm index.html example.md assets
+git add wasm.js wasm_bg.wasm index.html example.md
 git commit -m "Update wasm files."
 git push -f
 git checkout main
