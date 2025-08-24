@@ -35,7 +35,6 @@ wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./ta
 cp index.html ..
 cp example.md ..
 git checkout wasm
-rm assets -R
 mv ../index.html .
 mv ../example.md .
 mv ../wasm.js .
