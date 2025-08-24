@@ -8,56 +8,25 @@
 			* {
 				margin: 0;
 				padding: 0;
-				box-sizing: border-box;
-			}
-			.container {
-				display: flex;
-				flex-direction: column;
-				height: 100vh;
-			}
-			.box {
-				width: 100%;
-			}
-			.box-1 {
-				flex: 1;
-			}
-			.box-2 {
-				flex: 1;
-			}
-			@media (min-width: 768px) {
-				.container {
-					flex-direction: row;
-				}
-				.box {
-					height: 100%;
-					width: 50%;
-				}
-			}
-			textarea {
-				border: 0;
-				padding: 6px;
 			}
 		</style>
     </head>
     <body>
 		<a style="position:absolute;top:2px;right:4px;" href="https://github.com/772/roommd">Git Repository</a>
 		<button style="position:absolute;top:30px;right:4px;background-color:#aaf; text-decoration: none; border: 1px solid black; padding: 10px 20px;" onclick="window.location.reload()">Update</button>
-		<div class="container">
-			<div class="box box-1">
-				<canvas style="background-color:black;height:100%;width:100%" id="mygame-canvas"></canvas>
-			</div>
-			<div class="box box-2">
-				<textarea
-				id="input"
-				style="
-				line-height: 1;
-				width:100%;
-				height:100%;
-				outline: none;
-				"
-				></textarea>
-			</div>
-		</div>
+		<canvas style="background-color:black;height:100%;width:100%" id="mygame-canvas"></canvas>
+		<textarea
+		id="input"
+		style="
+		line-height: 1;
+		width:80%;
+		height:80vh;
+		outline: none;
+		position: absolute;
+		top: 10vh;
+		left: 10%;
+		"
+		></textarea>
         <script type="module">
             const inputElement = document.getElementById("input");
             if (inputElement.value.trim() === "") {
