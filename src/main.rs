@@ -117,8 +117,6 @@ fn main() {
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
-                    resolution: bevy::window::WindowResolution::new(1920.0, 500.0)
-                        .with_scale_factor_override(1.0),
                     canvas: Some("#mygame-canvas".into()),
                     ..default()
                 }),
@@ -159,7 +157,6 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut descriptions: ResMut<Descriptions>,
-    asset_server: Res<AssetServer>,
 ) {
     // Step 1: Read markdown and create lists ob objects.
     let text = get_input();
@@ -344,8 +341,6 @@ fn setup(
     }
 
     // Step 3: Spawn rooms and objects.
-    let texture_handle: Handle<Image> = asset_server.load("texture.png");
-    let normal_handle: Handle<Image> = asset_server.load("normal.png");
     let scaling2 = 1.0 / 18.0;
     let scaling = scaling2 * 0.999;
     for room in rooms {
@@ -363,8 +358,7 @@ fn setup(
                     ),
                 ),
                 MeshMaterial3d(materials.add(StandardMaterial {
-                    base_color_texture: Some(texture_handle.clone()),
-                    normal_map_texture: Some(normal_handle.clone()),
+                    base_color: Color::srgba(1.0, 1.0, 1.0, 1.0),
                     emissive: Color::srgba(0.0, 0.0, 0.0, 1.0).into(),
                     cull_mode: Some(bevy::render::render_resource::Face::Front),
                     double_sided: true,
@@ -550,16 +544,20 @@ fn setup(
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
         bevy_panorbit_camera::PanOrbitCamera::default(),
     ));
+    commands.insert_resource(AmbientLight {
+        brightness: 800.,
+        ..default()
+    });
     commands.spawn((
         PointLight {
-            shadows_enabled: true,
-            intensity: 10_000_000.,
-            range: 100.0,
-            shadow_depth_bias: 0.2,
+            intensity: 1_000_000.0,
+            range: 100.,
             ..default()
         },
-        Transform::from_xyz(8.0, 16.0, 8.0),
+        Transform::from_xyz(5.0, -10.0, 2.5),
     ));
+
+    
 }
 
 #[allow(clippy::type_complexity)]
