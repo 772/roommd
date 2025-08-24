@@ -57,7 +57,7 @@ fn handle_browser_resize(
         {
             window
                 .resolution
-                .set(target_width as f32, target_height as f32 - 300.0);
+                .set(target_width as f32, target_height as f32 * 0.9);
         }
     }
 }
