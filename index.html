@@ -5,27 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>RoomMD</title>
 		<style>
+			body {
+				background-color: #000;
+			}
 			* {
 				margin: 0;
 				padding: 0;
 			}
+			button {
+				background-color: #04AA6D;
+				border: none;
+				color: white;
+				height: 4vh;
+				padding: 0px 2vh;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 2vh;
+				cursor: pointer;
+				border-radius: 0.5vh;
+			  }
+			  button:hover {
+				  color: #eee;
+			  }
 		</style>
     </head>
     <body>
 		<canvas style="background-color:black;height:98vh;width:100%" id="mygame-canvas"></canvas>
-		<a href="https://github.com/772/roommd">Git Repository</a>
-		<button style="background-color:#aaf; text-decoration: none; border: 1px solid black; padding: 10px 20px;" onclick="window.location.reload()">Update</button>
+		<button style="position:absolute;top:2vh;left:50%;" onclick="window.location.reload()"><b>RUN &#9654;</b></button>
+		<button style="position:absolute;top:2vh;right:2%;background-color:blue;" onclick="document.location='https://github.com/772/roommd'" style="float:right;background-color:black"><b>Git Repository</b></button></div>
 		<textarea
 		id="input"
 		style="
 		line-height: 1;
 		background-color: rgb(255 255 255 / 0.5);
-		width:35%;
-		height:80vh;
+		width:48%;
+		height:90vh;
 		outline: none;
 		position: absolute;
-		top: 10vh;
-		left: 60%;
+		top: 7vh;
+		left: 50%;
 		"
 		></textarea>
         <script type="module">
