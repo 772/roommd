@@ -6,7 +6,7 @@
         <title>RoomMD</title>
 		<style>
 			body {
-				background-color: #000;
+				background-color: #2b2c2f;
 			}
 			* {
 				margin: 0;
@@ -28,25 +28,25 @@
 			  button:hover {
 				  color: #eee;
 			  }
+			  textarea {
+				line-height: 1;
+				background-color: rgb(255 255 255 / 0.5);
+				width:96%;
+				height:90vh;
+				outline: none;
+				position: absolute;
+				top: 7vh;
+				left: 2%;
+				white-space: nowrap;
+			  }
 		</style>
     </head>
     <body>
-		<canvas style="background-color:black;height:98vh;width:100%" id="mygame-canvas"></canvas>
-		<button style="position:absolute;top:2vh;left:50%;" onclick="window.location.reload()"><b>RUN &#9654;</b></button>
-		<button style="position:absolute;top:2vh;right:2%;background-color:blue;" onclick="document.location='https://github.com/772/roommd'" style="float:right;background-color:black"><b>Git Repository</b></button></div>
-		<textarea
-		id="input"
-		style="
-		line-height: 1;
-		background-color: rgb(255 255 255 / 0.5);
-		width:48%;
-		height:90vh;
-		outline: none;
-		position: absolute;
-		top: 7vh;
-		left: 50%;
-		"
-		></textarea>
+		<canvas style="margin-top:8vh;background-color:white;height:90vh;width:100%" id="mygame-canvas"></canvas>
+		<button style="position:absolute;top:2vh;left:2%;" onclick="window.location.reload()"><b>RUN &#9654;</b></button>
+		<button style="position:absolute;top:2vh;left:50%;" onclick="toggle_textarea()"><b>Toggle code</b></button>
+		<button style="position:absolute;top:2vh;right:2%;" onclick="document.location='https://github.com/772/roommd'" style="float:right;background-color:black"><b>Git</b></button></div>
+		<textarea id="input"></textarea>
         <script type="module">
             const inputElement = document.getElementById("input");
             if (inputElement.value.trim() === "") {
@@ -76,5 +76,15 @@
                 }
             });
         </script>
+        <script>
+			function toggle_textarea() {
+				const input = document.getElementById("input");
+				if (input.style.display === "none") {
+					input.style.display = "block";
+				} else {
+					input.style.display = "none";
+				}
+			}
+		</script>
     </body>
 </html>
