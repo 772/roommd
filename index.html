@@ -4,53 +4,60 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>RoomMD</title>
-		<style>
-			body {
-				background-color: #2b2c2f;
-			}
-			* {
-				margin: 0;
-				padding: 0;
-			}
-			button {
-				background-color: #04AA6D;
-				border: none;
-				color: white;
-				height: 4vh;
-				padding: 0px 2vh;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-size: 2vh;
-				cursor: pointer;
-				border-radius: 0.5vh;
-			  }
-			  button:hover {
-				  color: #eee;
-			  }
-			  textarea {
-				padding: 1em;
-				line-height: 1;
-				background-color: rgb(0 27 51 / 0.9);
-				width:96%;
-				height:88vh;
-				outline: none;
-                font-size: 15px;
-				position: absolute;
-				top: 7vh;
-				left: 2%;
-				white-space: nowrap;
-                color:white;
-                font-family: "Courier New";
-			  }
-		</style>
+        <style>
+            body {
+            background-color: #2b2c2f;
+            }
+            * {
+            margin: 0;
+            padding: 0;
+            }
+            button {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            height: 4vh;
+            padding: 0px 2vh;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 2vh;
+            cursor: pointer;
+            border-radius: 0.5vh;
+            margin: 1vh 0 1vh 2%;
+            }
+            button:hover {
+            color: #eee;
+            }
+            textarea {
+            padding: 1em;
+            line-height: 1;
+            background-color: rgb(0 27 51 / 0.9);
+            width:96%;
+            height:88vh;
+            outline: none;
+            font-size: 15px;
+            position: absolute;
+            left: 2%;
+            top: 7vh;
+            white-space: nowrap;
+            color:white;
+            font-family: "Courier New";
+            }
+            canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            margin-top:8vh;background-color:white;height:90vh;width:100%;
+            }
+        </style>
     </head>
     <body>
-		<canvas style="margin-top:8vh;background-color:white;height:90vh;width:100%" id="mygame-canvas"></canvas>
-		<button style="position:absolute;top:2vh;left:2%;" onclick="window.location.reload()"><b>RUN &#9654;</b></button>
-		<button style="position:absolute;top:2vh;left:50%;" onclick="toggle_textarea()"><b>Toggle code</b></button>
-		<button style="position:absolute;top:2vh;right:2%;" onclick="document.location='https://github.com/772/roommd'" style="float:right;background-color:black"><b>Git</b></button></div>
-		<textarea id="input"></textarea>
+        <button onclick="window.location.reload()"><b>RUN &#9654;</b></button>
+        <button onclick="toggle_textarea()"><b>Toggle code</b></button>
+        <button onclick="document.location='https://github.com/772/roommd'"><b>Git</b></button></div>
+        <canvas id="mygame-canvas"></canvas>
+        <textarea id="input"></textarea>
         <script type="module">
             const inputElement = document.getElementById("input");
             if (inputElement.value.trim() === "") {
@@ -81,14 +88,14 @@
             });
         </script>
         <script>
-			function toggle_textarea() {
-				const input = document.getElementById("input");
-				if (input.style.display === "none") {
-					input.style.display = "block";
-				} else {
-					input.style.display = "none";
-				}
-			}
-		</script>
+            function toggle_textarea() {
+            	const input = document.getElementById("input");
+            	if (input.style.display === "none") {
+            		input.style.display = "block";
+            	} else {
+            		input.style.display = "none";
+            	}
+            }
+        </script>
     </body>
 </html>
