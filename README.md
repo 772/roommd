@@ -34,6 +34,8 @@ cargo build --target wasm32-unknown-unknown --release
 wasm-bindgen --no-typescript --target web --out-dir ./../ --out-name "wasm" ./target/wasm32-unknown-unknown/release/*.wasm
 cp index.html ..
 cp example.md ..
+cp ../wasm.js .
+cp ../wasm_bg.wasm .
 git checkout wasm
 mv ../index.html .
 mv ../example.md .
