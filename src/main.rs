@@ -378,61 +378,162 @@ fn setup(
                 )),
             ))
             .with_children(|parent| {
-                for (side, dimensions, translation) in [
-    (&room.top, (scaling, scaling * 0.2, scaling), |obj: &(usize, usize, char), room: &Room| Vec3::new(
-        scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
-        scaling * (room.height / 2.0 - 0.1),
-        scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
-    )),
-    (&room.back, (scaling, scaling, scaling * 0.2), |obj, room| Vec3::new(
-        scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
-        scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
-        scaling * (0.0 - room.depth / 2.0 - 0.1),
-    )),
-    (&room.right, (scaling * 0.2, scaling, scaling), |obj, room| Vec3::new(
-        scaling * (room.width / 2.0 - 0.1),
-        scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
-        scaling * (obj.0 as f32 - room.height / 2.0 + 0.5),
-    )),
-    (&room.front, (scaling, scaling, scaling * 0.2), |obj, room| Vec3::new(
-        scaling * (0.0 - obj.0 as f32 + room.width / 2.0 - 0.5),
-        scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
-        scaling * (room.depth / 2.0 + 0.1),
-    )),
-    (&room.left, (scaling * 0.2, scaling, scaling), |obj, room| Vec3::new(
-        scaling * (0.0 - room.width / 2.0 + 0.1),
-        scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
-        scaling * (0.0 - obj.0 as f32 + room.height / 2.0 - 0.5),
-    )),
-    (&room.floor, (scaling, scaling * 0.2, scaling), |obj, room| Vec3::new(
-        scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
-        scaling * (0.0 - room.height / 2.0 + 0.1),
-        scaling * (obj.1 as f32 - room.depth / 2.0 + 0.5),
-    )),
-].iter() {
-    for obj in *side {
-        let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
-        parent
-            .spawn((
-                Mesh3d(meshes.add(Cuboid::from_tuple(*dimensions))),
-                MeshMaterial3d(white_matl.clone()),
-                Transform::from_translation(translation(obj, &room)),
-                Object(obj.2),
-                bevy::pbr::NotShadowCaster,
-            ))
-            .observe(update_material_on::<Pointer<Over>>(
-                materials.add(Color::Hsla(Hsla {
-                    lightness: 0.8,
-                    ..char_to_color(obj.2)
-                })),
-                obj.2,
-            ))
-            .observe(update_material_on::<Pointer<Out>>(
-                white_matl.clone(),
-                obj.2,
-            ));
-    }
-}
+                for obj in &room.top {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling, scaling * 0.2, scaling))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (room.height / 2.0 - 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
+                for obj in &room.back {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling, scaling, scaling * 0.2))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
+                                scaling * (0.0 - room.depth / 2.0 - 0.1),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
+                for obj in &room.right {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (room.width / 2.0 - 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
+                                scaling * (obj.0 as f32 - room.height / 2.0 + 0.5),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
+                for obj in &room.front {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling, scaling, scaling * 0.2))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (0.0 - obj.0 as f32 + room.width / 2.0 - 0.5),
+                                scaling * (0.0 - obj.1 as f32 + room.height / 2.0 - 0.5),
+                                scaling * (room.depth / 2.0 + 0.1),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
+                for obj in &room.left {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling * 0.2, scaling, scaling))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (0.0 - room.width / 2.0 + 0.1),
+                                scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
+                                scaling * (0.0 - obj.0 as f32 + room.height / 2.0 - 0.5),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
+                for obj in &room.floor {
+                    let white_matl = materials.add(Color::Hsla(char_to_color(obj.2)));
+                    parent
+                        .spawn((
+                            Mesh3d(meshes.add(Cuboid::new(scaling, scaling * 0.2, scaling))),
+                            MeshMaterial3d(white_matl.clone()),
+                            Transform::from_translation(Vec3::new(
+                                scaling * (obj.0 as f32 - room.width / 2.0 + 0.5),
+                                scaling * (0.0 - room.height / 2.0 + 0.1),
+                                scaling * (obj.1 as f32 - room.depth / 2.0 + 0.5),
+                            )),
+                            Object(obj.2),
+                            bevy::pbr::NotShadowCaster,
+                        ))
+                        .observe(update_material_on::<Pointer<Over>>(
+                            materials.add(Color::Hsla(Hsla {
+                                lightness: 0.8,
+                                ..char_to_color(obj.2)
+                            })),
+                            obj.2,
+                        ))
+                        .observe(update_material_on::<Pointer<Out>>(
+                            white_matl.clone(),
+                            obj.2,
+                        ));
+                }
             });
         room_index += 1;
     }
