@@ -1,6 +1,6 @@
 [package]
 name = "roommd"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Armin Schäfer"]
 description = "Creating building (wiring) diagrams should be as easy as writing markdown."
 repository = "https://github.com/772/roommd"
