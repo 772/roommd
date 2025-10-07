@@ -1,4 +1,7 @@
-use bevy::prelude::*;
+use bevy::{
+    camera_controller::free_cam::{FreeCam, FreeCamPlugin},
+    prelude::*,
+};
 use std::collections::HashMap;
 
 #[derive(Component)]
@@ -123,9 +126,10 @@ fn main() {
                 ..default()
             }),
             MeshPickingPlugin,
+            WindowResizePlugin,
+            FreeCamPlugin,
         ))
         .add_systems(Startup, setup)
-        .add_plugins(WindowResizePlugin)
         .insert_resource(Descriptions(HashMap::new()))
         .run();
 }
@@ -544,6 +548,7 @@ fn setup(
     commands.spawn((
         Camera3d::default(),
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
+        FreeCam::default(),
     ));
     commands.insert_resource(AmbientLight {
         brightness: 800.,
