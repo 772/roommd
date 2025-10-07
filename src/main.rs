@@ -125,7 +125,6 @@ fn main() {
             MeshPickingPlugin,
         ))
         .add_systems(Startup, setup)
-        .add_plugins(bevy_panorbit_camera::PanOrbitCameraPlugin)
         .add_plugins(WindowResizePlugin)
         .insert_resource(Descriptions(HashMap::new()))
         .run();
@@ -545,7 +544,6 @@ fn setup(
     commands.spawn((
         Camera3d::default(),
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
-        bevy_panorbit_camera::PanOrbitCamera::default(),
     ));
     commands.insert_resource(AmbientLight {
         brightness: 800.,
