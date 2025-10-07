@@ -11,7 +11,8 @@ categories = ["visualization"]
 keywords = ["graphics"]
 
 [dependencies]
-bevy = "0.16"
+bevy = { git = "https://github.com/bevyengine/bevy.git", rev = "66e82324120c0d73fc920b9f4c51ef8e9b17b556" }
+
 bevy_panorbit_camera = "0.26"
 web-sys = { version = "0.3.77", features = ["HtmlTextAreaElement"] }
 
