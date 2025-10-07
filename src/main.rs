@@ -373,7 +373,7 @@ fn setup(
                     ..default()
                 })),
                 Pickable::IGNORE,
-                bevy::pbr::NotShadowCaster,
+                bevy::light::NotShadowCaster,
                 Transform::from_translation(Vec3::new(
                     room.x * scaling2,
                     room.y * scaling2,
@@ -393,7 +393,7 @@ fn setup(
                                 scaling * (0.0 - obj.1 as f32 + room.depth / 2.0 - 0.5),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -419,7 +419,7 @@ fn setup(
                                 scaling * (0.0 - room.depth / 2.0 - 0.1),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -445,7 +445,7 @@ fn setup(
                                 scaling * (obj.0 as f32 - room.height / 2.0 + 0.5),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -471,7 +471,7 @@ fn setup(
                                 scaling * (room.depth / 2.0 + 0.1),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -497,7 +497,7 @@ fn setup(
                                 scaling * (0.0 - obj.0 as f32 + room.height / 2.0 - 0.5),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -523,7 +523,7 @@ fn setup(
                                 scaling * (obj.1 as f32 - room.depth / 2.0 + 0.5),
                             )),
                             Object(obj.2),
-                            bevy::pbr::NotShadowCaster,
+                            bevy::light::NotShadowCaster,
                         ))
                         .observe(update_material_on::<Pointer<Over>>(
                             materials.add(Color::Hsla(Hsla {
@@ -565,11 +565,11 @@ fn setup(
 }
 
 #[allow(clippy::type_complexity)]
-fn update_material_on<E>(
+fn update_material_on<E: EntityEvent>(
     new_material: Handle<StandardMaterial>,
     ch: char,
 ) -> impl Fn(
-    Trigger<E>,
+    On<E>,
     Query<(&mut MeshMaterial3d<StandardMaterial>, &Object)>,
     Query<&mut Text>,
     Res<Descriptions>,
