@@ -1,5 +1,5 @@
 use bevy::{
-    camera_controller::free_cam::{FreeCam, FreeCamPlugin},
+    camera_controller::free_camera::{FreeCamera, FreeCameraPlugin},
     prelude::*,
 };
 use std::collections::HashMap;
@@ -127,7 +127,7 @@ fn main() {
             }),
             MeshPickingPlugin,
             WindowResizePlugin,
-            FreeCamPlugin,
+            FreeCameraPlugin,
         ))
         .add_systems(Startup, setup)
         .insert_resource(Descriptions(HashMap::new()))
@@ -538,7 +538,6 @@ fn setup(
                         ));
                 }
             });
-        room_index += 1;
     }
 
     // Spawn other stuff.
@@ -548,9 +547,9 @@ fn setup(
     commands.spawn((
         Camera3d::default(),
         Transform::from_xyz(3.0, 1.0, 3.0).looking_at(Vec3::new(0.0, -0.5, 0.0), Vec3::Y),
-        FreeCam::default(),
+        FreeCamera::default(),
     ));
-    commands.insert_resource(AmbientLight {
+    commands.spawn(AmbientLight {
         brightness: 800.,
         ..default()
     });
@@ -571,7 +570,7 @@ fn update_material_on<E: EntityEvent>(
 ) -> impl Fn(
     On<E>,
     Query<(&mut MeshMaterial3d<StandardMaterial>, &Object)>,
-    Query<&mut Text>,
+    Query<&mut bevy::prelude::Text>,
     Res<Descriptions>,
 ) {
     move |_trigger, mut objects, mut texts, descriptions| {
