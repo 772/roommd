@@ -11,7 +11,7 @@ categories = ["visualization"]
 keywords = ["graphics"]
 
 [dependencies]
-bevy = { git = "https://github.com/bevyengine/bevy.git", rev = "9d4b7e2b3247d81a2555910ac767353ec93794cd", default-features = false, features = ["3d", "ui", "free_camera"] }
+bevy = { version = "0.19", default-features = false, features = ["3d", "ui", "free_camera"] }
 web-sys = { version = "0.3", features = ["HtmlTextAreaElement"] }
 
 [profile.dev]
